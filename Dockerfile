@@ -6,11 +6,9 @@ COPY package.json /usr/app/package.json
 COPY yarn.lock /usr/app/yarn.lock
 RUN yarn install
 
-FROM node_base as build
+FROM node_base as dev
 WORKDIR /usr/app
 COPY --from=deps /usr/app/node_modules /usr/app/node_modules
 COPY . /usr/app
-RUN yarn build
-
-FROM scratch AS ui
-COPY --from=build /usr/app/dist /usr/app
+EXPOSE 3000
+ENTRYPOINT ["yarn"]

@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import React from "react";
-import CatSwiper from "./CatSwiper";
 
 const Header = styled("h1")`
   font-family: sans-serif;
@@ -8,8 +7,7 @@ const Header = styled("h1")`
 
 const App = () => (
   <div>
-    <Header data-testid="header">🐳🔥🐳 Docker UI Demo 🔥🐳🔥</Header>
-    <CatSwiper />
+    <Header data-testid="header">🔥 UI Dev Env</Header>
   </div>
 );
 

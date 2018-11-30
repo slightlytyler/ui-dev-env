@@ -1,11 +1,9 @@
 # Default env vars
-API_URL?=
 ARGS?=
-PORT?=3000
 
 GIT_SHA=$(shell git rev-parse HEAD)
-TAG=slightlytyler/docker-ui-demo
-TAG_DEV=slightlytyler/docker-ui-demo-dev
+TAG=slightlytyler/ui-dev-env
+VERSION=0.0.1
 VOLUME_MOUNTS=-v $(PWD)/src:/usr/app/src \
 			  -v $(PWD)/package.json:/usr/app/package.json \
 			  -v $(PWD)/webpack.config.js:/usr/app/webpack.config.js
@@ -17,18 +15,25 @@ build:
 	docker build -t $(TAG):$(GIT_SHA) . \
 		&& docker tag $(TAG):$(GIT_SHA) $(TAG):latest
 
-build-dev:
-	docker build -f dev.Dockerfile -t $(TAG_DEV):$(GIT_SHA) . \
-		&& docker tag $(TAG_DEV):$(GIT_SHA) $(TAG_DEV):latest
+publish:
+	docker tag $(TAG):latest $(TAG):$(VERSION) \
+		&& docker push $(TAG):$(VERSION) \
+		&& docker push $(TAG):latest
+
+push:
+	docker push $(TAG):$(GIT_SHA)
+
+run:
+	docker run -it --rm $(VOLUME_MOUNTS) $(TAG) $(ARGS)
 
 run-dev:
-	docker run -it --rm -p $(PORT):$(PORT) $(VOLUME_MOUNTS) $(TAG_DEV) \
-		dev --env.api-url $(API_URL) --env.host 0.0.0.0 --env.port $(PORT) $(ARGS)
+	docker run -it --rm -p $(PORT):$(PORT) $(VOLUME_MOUNTS) $(TAG) \
+		dev $(ARGS)
 
 run-yarn:
-	docker run -it --rm $(VOLUME_MOUNTS_WITH_DEP_STUFF) $(TAG_DEV) $(ARGS)
+	docker run -it --rm $(VOLUME_MOUNTS_WITH_DEP_STUFF) $(TAG) $(ARGS)
 
 run-%:
-	docker run -it --rm $(VOLUME_MOUNTS) $(TAG_DEV) $$(echo $@ | sed 's/run-//') $(ARGS)
+	docker run -it --rm $(VOLUME_MOUNTS) $(TAG) $$(echo $@ | sed 's/run-//') $(ARGS)
 
-.PHONY: build build-dev run-dev run-yarn
+.PHONY: build publish push run run-dev run-yarn
