@@ -7,7 +7,7 @@
 #### Development
 
 From your development directory, `<dev>`, create a file `<dev>/src/App.js`.
-Here's an example component.
+Here's an example component (React and Emotion are already installed).
 
 ```js
 import styled from "@emotion/styled";
@@ -35,7 +35,7 @@ docker run -it --rm -p 3000:3000 -v $(PWD)/src:/usr/app/src slightlytyler/ui-dev
 #### Testing
 
 To use tests, create a test file `<dev>/src/App.test.js`. 
-Here's an example test.
+Here's an example test (Jest and react-testing-library are already installed).
 
 ```js
 import React from "react";
