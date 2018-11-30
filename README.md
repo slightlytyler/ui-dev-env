@@ -2,6 +2,8 @@
 
 ## Use guide
 
+#### Development
+
 From your development directory, `<dev>`, create a file `<dev>/src/App.js`.
 Here's an example component.
 
@@ -28,6 +30,8 @@ Then from `<dev>` run:
 docker run -it --rm -p 3000:3000 -v $(PWD)/src:/usr/app/src slightlytyler/ui-dev-env dev
 ```
 
+#### Testing
+
 To use tests, create a test file `<dev>/src/App.test.js`. 
 Here's an example test.
 
@@ -50,6 +54,8 @@ Then from `<dev>` run:
 ```sh
 docker run -it --rm -p 3000:3000 -v $(PWD)/src:/usr/app/src slightlytyler/ui-dev-env test
 ```
+
+#### Formatting
 
 To format the source files run:
 
