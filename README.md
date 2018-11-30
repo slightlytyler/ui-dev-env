@@ -80,7 +80,7 @@ make run ARGS="fmt"
 ### Test dev command
 
 ```sh
-make run-dev API_URL=https://api.thecatapi.com
+make run-dev
 ```
 
 ### Shortcuts
